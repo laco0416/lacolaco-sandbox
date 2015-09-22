@@ -13,8 +13,8 @@ func aespySetup() {
 }
 
 func handleAeSpySample(w http.ResponseWriter, r *http.Request) {
-    b := bbq.NewBBQ()
-    b.AddKind("Person", "aespy", "person6")
+    b := bbq.NewBBQ(&bbq.Option{Log: true})
+    b.AddKind("Person", "aespy", "person")
     c, _ := b.Hook(r)
     p := &Person{}
     age, err := strconv.ParseInt(r.URL.Query().Get("age"), 10, 64)
@@ -24,6 +24,8 @@ func handleAeSpySample(w http.ResponseWriter, r *http.Request) {
     }
     p.Age = age
     p.Name = r.URL.Query().Get("name")
+    p.Sex = r.URL.Query().Get("sex")
+    p.Bar = "Foo"
     if err := p.Save(c); err != nil {
         http.Error(w, err.Error(), http.StatusInternalServerError)
         return
