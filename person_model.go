@@ -11,7 +11,6 @@ type Person struct {
     Age  int64  `json:"age"`
     Name string `datastore:",noindex" json:"name"`
     Sex  string `json:"sex"`
-    Bar  string `json:"bar"`
 }
 
 func (p *Person) Save(c appengine.Context) error {
