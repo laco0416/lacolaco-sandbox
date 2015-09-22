@@ -6,16 +6,15 @@ import (
 	"appengine"
 )
 
-// +bbq
 type Person struct {
 	ID   int64  `goon:"id" datastore:"-" json:"-"`
 	Age  int64  `json:"age"`
 	Name string `datastore:",noindex" json:"name"`
 }
 
-func (l *Person) Save(c appengine.Context) error {
+func (p *Person) Save(c appengine.Context) error {
 	g := goon.FromContext(c)
-	if _, err := g.Put(l); err != nil {
+	if _, err := g.Put(p); err != nil {
 		return err
 	}
 	return nil
